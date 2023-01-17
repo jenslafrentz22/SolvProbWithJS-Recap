@@ -1,16 +1,16 @@
 function filterApiData(apiData, mandatoryKeys) {
-  result = [];
-  for (j = 0; j < mandatoryKeys.length; j++) {
-    for (i = 0; i < apiData.length; i++) {
-      for (const [key, value] of Object.entries(apiData[i])) {
-        // console.log(
-        //   "KEY: " + key + ",VALUE: " + value + " - MANDA: " + mandatoryKeys[j]
-        // );
-        if (key === mandatoryKeys[j] && value !== "") {
-          result.push({ key, value });
+  let result = [];
+  // mandatoryKeys[..., ...]
+  for (let i = 0; i < mandatoryKeys.length; i++) {
+    // apiData [{...}, {...}]
+    for (let j = 0; j < apiData.length; j++) {
+      // apiData[j] {key: value, ..., ...}
+      for (const [key, value] of Object.entries(apiData[j])) {
+        if (key === mandatoryKeys[i]) {
+          result.push(apiData[j]);
         }
       }
     }
+    return result;
   }
-  console.log(result);
 }
